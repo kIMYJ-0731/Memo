@@ -13,18 +13,17 @@ public class Memo {
         this.isdone = isdone;
     }
 
+    public Memo(String maintext, String subtext, int isdone) {
+        this.maintext = maintext;
+        this.subtext = subtext;
+        this.isdone = isdone;
+    }
     public int getSeq() {
         return seq;
     }
 
     public void setSeq(int seq) {
         this.seq = seq;
-    }
-
-    public Memo(String maintext, String subtext, int isdone) {
-        this.maintext = maintext;
-        this.subtext = subtext;
-        this.isdone = isdone;
     }
 
     public String getMaintext() {

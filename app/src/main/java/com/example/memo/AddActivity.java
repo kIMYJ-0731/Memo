@@ -20,24 +20,25 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        edtText = findViewById(R.id.edtMemo);
+
         findViewById(R.id.btnDone).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 String str = edtText.getText().toString();
 
-                if(str.length()>0){
+                if(str.length() > 0){
                     Date date = new Date();
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
                     String substr = sdf.format(date);
 
                     Intent intent = new Intent();
-                    intent.putExtra("main",str);
-                    intent.putExtra("sub",substr);
+                    intent.putExtra("main", str);
+                    intent.putExtra("sub", substr);
                     setResult(0,intent);
                     finish();
 
-                    Toast.makeText(AddActivity.this,str+","+substr,Toast.LENGTH_SHORT).show();
                 }
 
             }

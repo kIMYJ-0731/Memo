@@ -14,7 +14,7 @@ public class SQLiteHelper {
     private static final String table1 = "MemoTable";
     private static final int dbVersion = 1;
 
-    private OpenHelper opener;
+    private OpenHelper opener; //db 관련객체
     private SQLiteDatabase db;
 
     private Context context;
@@ -32,45 +32,38 @@ public class SQLiteHelper {
         }
 
         @Override
-        public void onCreate(SQLiteDatabase db) {
-            String create = "CREATE TABLE"+ table1 + "(" +
-                    "seq integer PRIMARY KEY AUTOINCREMENT,"+
+        public void onCreate(SQLiteDatabase sqLiteDatabase) { //db 생성
+            String create = "CREATE TABLE "+ table1 + " (" +
+                    "seq integer PRIMARY KEY AUTOINCREMENT, "+
                     "maintext text,"+
                     "subtext text,"+
                     "isdone integer)";
-            db.execSQL(create);
+            sqLiteDatabase.execSQL(create);
         }
 
         @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS"+table1);
-            onCreate(db);
-
+        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+table1);
+            onCreate(sqLiteDatabase);
         }
     }
-    //INSERT INTO MemoTable VALUES(NULL,'MAINTEXT','SUBTEXT',0);
+
+    //<메모입력> INSERT INTO MemoTable VALUES(NULL,'MAINTEXT','SUBTEXT',0);
     public void insertMemo(Memo memo){//메모입력
-        String sql = "INSERT INTO"+table1+"VALUES(NULL,'"+memo.maintext+"','"+memo.subtext+"',"+memo.getIsdone()+");";
+        String sql = "INSERT INTO "+table1+" VALUES(NULL, '"+memo.maintext+"','"+memo.subtext+"',"+memo.getIsdone()+");";
         db.execSQL(sql);
     }
 
-    //DELETE FROM MemoTable WHERE seq = 0;
-    public void deleteMemo(int position){
-        String sql = "DELETE FROM" +table1+"WHERE seq ="+position+";";
-        db.execSQL(sql);
-    }
-
-    //SELECT*FROM MemoTable;
+    //<메모 조회> SELECT*FROM MemoTable;
     public ArrayList<Memo> selectAll(){
-        String sql = "SELECT * FROM"+ table1;
+        String sql = "SELECT * FROM "+ table1;
 
-        ArrayList<Memo>list = new ArrayList<>();
+        ArrayList<Memo> list = new ArrayList<>();
 
         Cursor results = db.rawQuery(sql,null);
         results.moveToFirst();
 
         while (!results.isAfterLast()){
-
             Memo memo = new Memo(results.getInt(0),results.getString(1),results.getString(2),results.getInt(3));
             list.add(memo);
             results.moveToNext();

@@ -38,6 +38,4 @@
         android:textAlignment="textEnd"
         android:gravity="end" />
 
-        
-
 </LinearLayout>

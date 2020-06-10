@@ -2,16 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="0dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1"
     tools:context=".AddActivity">
 
     <EditText
-        android:layout_centerVertical="true"
         android:id="@+id/edtMemo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:hint="메모를 입력하세요"/>
 
     <LinearLayout
@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="cancel" />
+
         <Button
             android:id="@+id/btnDone"
             android:layout_width="0dp"

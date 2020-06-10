@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        memoList = new ArrayList<>();
+
         dbHelper = new SQLiteHelper(MainActivity.this);
         memoList = dbHelper.selectAll();
 
@@ -50,11 +53,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //새로운 메모 작성
-                Intent intent = new Intent(MainActivity.this,AddActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 startActivityForResult(intent,0);
             }
         });
-
 
         dbHelper = new SQLiteHelper(MainActivity.this);
         memoList = dbHelper.selectAll();
@@ -64,16 +66,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==0){
+        if(requestCode == 0){
             String strMain = data.getStringExtra("main");
             String strSub = data.getStringExtra("sub");
 
-            Memo memo = new Memo(strMain,strSub,0);
+            Memo memo = new Memo(strMain, strSub, 0);
             recyclerAdapter.addItem(memo);
             recyclerAdapter.notifyDataSetChanged();
 
             dbHelper.insertMemo(memo);
-
         }
     }
 
